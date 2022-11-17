@@ -6,21 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="to-do.js"></script>
 </head>
 <body>
     <header>
-        <h2 class="to-do">To Do List</h2>
+        <h2>To Do List</h2>
     </header>
     <main>
         <div>
             <form>
-                <input type="text" placeholder="New Task">
-                <button type="submit">Add</button>
+                <input id="task_input" name= "task_input" type="text" placeholder="New Task"/>
+                <button class="add" type="submit">Add</button>
             </form>
         </div>
-        <div class="result">
-
-        </div>
+        <div class="result"></div>
     </main>
     <footer>Copyright &copy Roschelle Matthews-Rhoden</footer>
 </body>
