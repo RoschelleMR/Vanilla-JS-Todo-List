@@ -17,15 +17,24 @@ document.addEventListener("DOMContentLoaded", function(){
         div.className = "task"
         document.getElementById("result").appendChild(div)
 
+        const div2 = document.createElement("div")
+        div2.className = "task_text"
+        div.appendChild(div2)
+
         const p = document.createElement("p")
         p.textContent = html
-        div.appendChild(p)
+        div2.appendChild(p)
+
+        const div3 = document.createElement("div")
+        div3.className = "task_button_box"
+        div.appendChild(div3)
 
         const button = document.createElement("button")
         button.className = "delete"
         button.setAttribute("type","submit")
         button.textContent = "Delete"
-        div.appendChild(button)
+        div3.appendChild(button)
+        
 
     }
 
@@ -55,8 +64,9 @@ document.addEventListener("DOMContentLoaded", function(){
         if (e.target.classList.contains('delete')){
             e.preventDefault();
             button = e.target
-            console.log(button.parentNode)
-            button.parentNode.remove()
+            console.log(button.parentNode.parentNode)
+            task_Node = button.parentNode.parentNode
+            task_Node.remove()
         }
         
     })
