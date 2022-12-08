@@ -28,13 +28,24 @@ document.addEventListener("DOMContentLoaded", function(){
         div.appendChild(button)
 
     }
+
+    function required(input_task) {
+     if (input_task.length == 0)
+      { 
+         alert("Please enter a task");  	
+         return false; 
+      }  	
+      return true; 
+    } 
     
 
     add_btn.addEventListener("click", function(e){
         e.preventDefault();
         user_task = user_input.value;
 
-        createTaskElement(user_task);
+        if(required(user_task)){
+            createTaskElement(user_task);
+        }
     
     })
 
