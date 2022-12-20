@@ -80,6 +80,7 @@ form {
 
   display: flex;
   justify-content: center;
+  pointer-events: none;
 }
 
 .task_button_box:hover {
@@ -91,6 +92,7 @@ form {
   background-color: transparent;
   padding: 5px;
   color: white;
+  pointer-events: auto;
 }
 
 .delete:hover {
