@@ -32,10 +32,11 @@ document.addEventListener("DOMContentLoaded", function(){
         const button = document.createElement("button")
         button.className = "delete"
         button.setAttribute("type","submit")
-        button.textContent = "Delete"
         div3.appendChild(button)
         
-
+        const bin_icon = document.createElement("i")
+        bin_icon.className = "fa-solid fa-trash"
+        button.appendChild(bin_icon)
     }
 
     function required(input_task) {
