@@ -1,10 +1,78 @@
 document.addEventListener("DOMContentLoaded", function(){
+    let url;
     let add_btn = document.querySelector(".add");
     
     let message = document.querySelector("#result");
     let user_input = document.getElementById("task_input");
 
-    const completed_tasks = [];
+    let complete_btn = document.querySelector(".complete_btn");
+    let incomplete_btn = document.querySelector(".incomplete_btn");
+    let all_btn = document.querySelector(".all_btn");
+    let clear_btn = document.querySelector(".clear_btn");
+
+    let all_tasks_list = [];
+
+
+
+    incomplete_btn.addEventListener("click", function(e){
+        showIncomplete();
+    })
+
+    complete_btn.addEventListener("click", function(e){
+        showComplete();
+    })
+
+    all_btn.addEventListener("click", function(e){
+        showAll();
+    })
+
+    clear_btn.addEventListener("click", function(e){
+        clearAll();
+    })
+
+    function showIncomplete(){
+        all_tasks_list.forEach(task => {
+            if (task.classList.contains("completed")){
+                task.classList.add("hide");
+            }
+            if (task.classList.contains("incomplete") && (task.classList.contains("hide"))){
+                task.classList.remove("hide")
+            }
+
+        });
+    }
+
+    function showComplete(){
+
+        all_tasks_list.forEach(task => {
+
+            if (task.classList.contains("incomplete")){
+                task.classList.add("hide");
+            }
+            if (task.classList.contains("completed") && (task.classList.contains("hide"))){
+                task.classList.remove("hide")
+            }
+        });
+    }
+
+    function showAll(){
+
+        all_tasks_list.forEach(task => {
+            if (task.classList.contains("hide")){
+                task.classList.remove("hide");
+            }
+        })
+    }
+
+    function clearAll(){
+
+        all_tasks_list.forEach(task => {
+            task.remove();
+        })
+
+        all_tasks_list = [];
+    }
+
 
     
     function createTaskElement(userTask){
@@ -16,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function(){
         html = userTask
 
         const div = document.createElement("div")
-        div.className = "task"
+        div.className = "task incomplete"
         document.getElementById("result").appendChild(div)
 
         const div2 = document.createElement("div")
@@ -45,6 +113,10 @@ document.addEventListener("DOMContentLoaded", function(){
         const checkbox_div = document.createElement("div");
         checkbox_div.className = "task_check"
         div.appendChild(checkbox_div);
+
+        //adding all tasks to a list
+        all_tasks_list.push(div)
+
     }
 
     function required(input_task) {
@@ -73,8 +145,8 @@ document.addEventListener("DOMContentLoaded", function(){
         if (e.target.classList.contains('delete')){
             e.preventDefault();
             button = e.target;
-            console.log(button.parentNode.parentNode)
             task_Node = button.parentNode.parentNode
+            all_tasks_list.pop(task_Node);
             task_Node.remove()
         }
 
@@ -83,24 +155,30 @@ document.addEventListener("DOMContentLoaded", function(){
 
             checkbox = e.target
 
-            //add if it's empty
             
             if (checkbox.childNodes.length==0){
+
+
+                if (checkbox.parentNode.classList.contains("incomplete")){
+
+                    checkbox.parentNode.classList.remove("incomplete")
+
+                }
                 const check_icon = document.createElement("i")
                 check_icon.className = "fa-solid fa-check"
                 checkbox.appendChild(check_icon)
+                checkbox.parentNode.classList.add("completed")
 
-                task_Node = checkbox.parentNode;
-
-                completed_tasks.push(task_Node)
 
             }
 
             else{
-                checkbox.firstChild.remove();
-                task_Node = checkbox.parentNode;
-                completed_tasks.pop(task_Node);
+                if (checkbox.parentNode.classList.contains("completed")){
+                    checkbox.parentNode.classList.remove("completed")
+                }
 
+                checkbox.parentNode.classList.add("incomplete")
+                checkbox.firstChild.remove();
             }
 
             
