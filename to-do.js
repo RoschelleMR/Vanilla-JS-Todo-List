@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function(){
         div.appendChild(checkbox_div);
 
         //adding all tasks to a list
-        all_tasks_list.push(div)
+        all_tasks_list.push(div);
 
     }
 
@@ -127,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function(){
       }  	
       return true; 
     } 
+
     
 
     add_btn.addEventListener("click", function(e){
@@ -136,26 +137,45 @@ document.addEventListener("DOMContentLoaded", function(){
         if(required(user_task)){
             createTaskElement(user_task);
         }
+
+        user_input.value = "";
     
     })
 
     
-    // delete functionality
+    
     message.addEventListener("click", function(e){
-        if (e.target.classList.contains('delete')){
+        // delete functionality
+        if (e.target.matches('.delete') || e.target.parentNode.matches('.delete')){
             e.preventDefault();
-            button = e.target;
+
+            if (e.target.parentNode.matches('.delete')){
+                button = e.target.parentNode;
+            }
+            else{
+                button = e.target;
+            }
             task_Node = button.parentNode.parentNode
-            all_tasks_list.pop(task_Node);
-            task_Node.remove()
+            for (let i in all_tasks_list){
+                if (all_tasks_list[i]==task_Node){
+                    all_tasks_list.splice(i,1);
+                    break;
+                }
+            }
+            task_Node.remove();
         }
 
-        if (e.target.classList.contains("task_check")){
+        //checkbox functionality
+        if (e.target.classList.contains("task_check") || e.target.parentNode.classList.contains("task_check")){
             e.preventDefault();
 
-            checkbox = e.target
+            if (e.target.parentNode.classList.contains("task_check")){
+                checkbox = e.target.parentNode;
+            }
+            else{
+                checkbox = e.target
+            }
 
-            
             if (checkbox.childNodes.length==0){
 
 
